@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="calories">
+<head>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script	type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://code.angularjs.org/1.3.0/angular-messages.min.js"></script>
+  
+  	<script type="text/javascript" src="js/app.js"></script>
+  	<script type="text/javascript" src="js/login.js"></script>
+  	<script type="text/javascript" src="js/settings.js"></script>
+  	<script type="text/javascript" src="js/meals.js"></script>
+  	<script type="text/javascript" src="js/register.js"></script>
+  	<script type="text/javascript" src="js/users.js"></script>
+  	
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+	<title>Calories counter</title>
+</head>
+<body ng-controller="CaloriesController as calories">
+
+	<div class="container">
+		<div class="jumbotron">
+		  <div ng-show="calories.loggedUser" align="right">
+			<a href class="btn btn-primary btn-md" ng-click="calories.logout()">Logout</a>
+		  </div>
+		  <div ng-hide="calories.loggedUser || calories.loggingShowing" align="right">
+			<a href class="btn btn-primary btn-md" ng-click="calories.showLogin()">Login</a>
+		  </div>
+		  <h2>Calories Counter</h2>
+		  <div ng-hide="calories.loggedUser">
+			  <p>This application will help you to control your daily calories consumption. 
+			  <a href ng-click="calories.showRegister()" >Register</a> now.
+		  </div>
+		  <login ng-show="calories.loggingShowing"></login>
+		  <register ng-show="calories.registeringShowing"></register>	  
+		  <div ng-show="calories.loggedUser">
+			<p>Hi {{calories.loggedUser.name}}, how many calories did you consume today?</p>
+		  </div>
+		</div>
+	
+	  	<section class="tab" ng-controller="SectionController as section" ng-show="calories.loggedUser">
+	  		<ul class="nav nav-pills" role="tablist">
+		  		<li role="presentation" ng-class="{active:section.isSelected('users')}" ng-show="section.tabIsVisible('users')"> 
+		  			<a href ng-click="section.setTab('users')">Users</a> 
+		  		</li>
+		  		<li role="presentation" ng-class="{active:section.isSelected('meals')}" ng-show="section.tabIsVisible('meals')"> 
+		  			<a href ng-click="section.setTab('meals')">Meals</a> 
+		  		</li>
+		  		<li role="presentation" ng-class="{active:section.isSelected('settings')}" ng-show="section.tabIsVisible('settings')"> 
+		  			<a href ng-click="section.setTab('settings')">
+		  			<span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"/></a> 
+		  		</li>
+		  		<li role="presentation" ng-show="section.tabIsVisible('settings')"  ng-hide="section.selectedUser">
+		  			<span class="label label-default">{{calories.loggedUser.caloriesLimit}} daily calories</span>
+		  		</li>
+		  		<li role="presentation" ng-show="section.tabIsVisible('settings')" ng-show="section.selectedUser">
+		  			<span class="label label-default">{{section.selectedUser.caloriesLimit}} daily calories</span>
+		  		</li>
+		  		<li role="presentation" ng-show="section.selectedUser">
+		  			<span class="label label-primary">Selected User: {{section.selectedUser.name}}</span>
+		  		</li>		  		
+	  		</ul>
+	  		<users ng-show="section.isSelected('users')"></users>
+	  		<meals ng-show="section.isSelected('meals')" ></meals>
+	  		<settings ng-show="section.isSelected('settings')"></settings>
+	  	</section>
+	  	
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+
+<div ng-controller="RegisterCtrl as register">
+	<form name="registerForm" ng-submit="register.save()">
+		<fieldset class="form-group">
+			<input type="text" class="form-control" placeholder="name" ng-model="register.newUser.name" required />
+		</fieldset>
+		<fieldset class="form-group">
+			<input type="email" class="form-control" placeholder="e-mail" ng-model="register.newUser.email" required />
+		</fieldset>
+		<fieldset class="form-group">
+			<input type="password" class="form-control" placeholder="password" ng-model="register.newUser.password" required />
+		</fieldset>
+		<fieldset class="form-group">
+			<input type="password" class="form-control" placeholder="repeat password" ng-model="register.newUser.repeatedPassword" required />
+		</fieldset>
+		<div ng-messages="register.$messages" ng-messages-include="messages.html"></div>
+		<input type="submit" class="btn btn-primary btn-md" value="Save"  />
+	</form>
+</div>

@@ -1,0 +1,18 @@
+<div>
+	<form name="loginForm" ng-controller="LoginCtrl as login"
+		ng-submit="login.submit()">
+		
+		<fieldset class="form-group">
+			<input type="text" class="form-control" placeholder="e-mail" ng-model="login.email" required />
+		</fieldset>
+		<fieldset class="form-group">
+			<input type="password" class="form-control" placeholder="password" ng-model="login.password" required />
+		</fieldset>
+		
+		<div ng-messages="login.$messages" ng-messages-include="messages.html"></div>
+		
+		<input type="submit" class="btn btn-primary btn-md" value="Login" />
+		or <a href ng-click="calories.showRegister()">Register</a>
+		
+	</form>
+</div>
